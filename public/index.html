@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ComfyUI Web 控制台</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1>ComfyUI Web 控制台</h1>
+        <p>支持工作流全参数控制、模型切换与移动端适配</p>
+      </div>
+      <div class="status-card" id="status-card">
+        <div class="status-line">
+          <span>ComfyUI 地址</span>
+          <strong id="comfyui-url">加载中…</strong>
+        </div>
+        <div class="status-line">
+          <span>节点数量</span>
+          <strong id="node-count">0</strong>
+        </div>
+        <button id="refresh-meta" class="secondary">刷新元数据</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel" id="workflow-panel">
+        <div class="panel-header">
+          <h2>工作流控制台</h2>
+          <div class="panel-actions">
+            <button id="save-workflow" class="secondary">保存工作流</button>
+            <button id="run-workflow" class="primary">运行工作流</button>
+          </div>
+        </div>
+        <div class="panel-body" id="workflow-list">
+          <p class="muted">正在加载工作流…</p>
+        </div>
+      </section>
+
+      <aside class="panel" id="model-panel">
+        <div class="panel-header">
+          <h2>模型开关与管理</h2>
+        </div>
+        <div class="panel-body">
+          <form id="model-form" class="stack">
+            <label>
+              模型名称
+              <input type="text" name="name" placeholder="例如 SDXL Base" required />
+            </label>
+            <label>
+              模型类型
+              <select name="type" required>
+                <option value="checkpoint">Checkpoint</option>
+                <option value="lora">LoRA</option>
+                <option value="vae">VAE</option>
+                <option value="controlnet">ControlNet</option>
+                <option value="embedding">Embedding</option>
+                <option value="custom">Custom</option>
+              </select>
+            </label>
+            <label>
+              模型路径（可选）
+              <input type="text" name="path" placeholder="/models/checkpoints/xxx.safetensors" />
+            </label>
+            <label>
+              备注
+              <input type="text" name="note" placeholder="描述或用途" />
+            </label>
+            <button type="submit" class="primary">添加模型</button>
+          </form>
+
+          <div class="divider"></div>
+
+          <div>
+            <h3>已登记模型</h3>
+            <ul id="model-list" class="model-list"></ul>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <section class="panel" id="output-panel">
+      <div class="panel-header">
+        <h2>运行结果</h2>
+        <div class="panel-actions">
+          <button id="refresh-history" class="secondary">刷新历史</button>
+        </div>
+      </div>
+      <div class="panel-body" id="output-log">
+        <p class="muted">等待运行结果…</p>
+      </div>
+    </section>
+
+    <section class="panel" id="gallery-panel">
+      <div class="panel-header">
+        <h2>d站画廊</h2>
+        <p class="muted">展示 ComfyUI 历史记录中的输出图</p>
+      </div>
+      <div class="panel-body">
+        <div id="history-list" class="history-list"></div>
+        <div id="gallery-grid" class="gallery-grid"></div>
+      </div>
+    </section>
+
+    <script src="/app.js" type="module"></script>
+  </body>
+</html>
